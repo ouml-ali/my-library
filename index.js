@@ -2,21 +2,68 @@ const myLibrary = [];
 
 const bookListContainer = document.getElementById('book-list');
 const addBookButton = document.getElementById('add-book-btn');
+const addBookDialog = document.getElementById('add-book-dialog');
+const dialogAddBtn = document.getElementById('dialogAddBtn');
+const bookForm = document.getElementById('book-form');
 
 addBookButton.addEventListener('click', () => {
-    addBookToLibrary();
+    addBookDialog.showModal();
 });
 
-function Book(title, author, numPages) {
+// addBookDialog.addEventListener('close', () => {
+
+// });
+
+dialogAddBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    //TODO do input validation while inputing in form not just at the end
+    let titleRegx = new RegExp(/^[A-Za-z0-9\s\-_,\.;:()]+$/);
+    let authorRegx = new RegExp(/^[A-Za-z\s]+$/);
+    let numberRegx = new RegExp(/^[0-9]+$/);
+    let formData = new FormData(bookForm);
+    let title = '';
+    let author = '';
+    let numPages = 0;
+    let read = false;
+    for(let [name, value] of formData) {
+        switch (name) {
+            case 'title':
+                if(value.match(titleRegx)) title = value;
+                break;
+            case 'author':
+                if(value.match(authorRegx)) author = value;
+                break;
+            case 'numPages':
+                if(value.match(numberRegx)) numPages = value;
+                break;
+            case 'read':
+                if(value === 'on') read = true;
+            break;
+            default:
+                break;
+        }
+    }
+    if(title !== '' && author !== '' && numPages !== '') {
+        let book = new Book(title, author, numPages, read);
+        addBookToLibrary(book);
+        addBookDialog.close();
+    } else {
+        //TODO show some message in dialog or something
+
+    }
+
+
+});
+
+function Book(title, author, numPages, read) {
     this.title = title;
     this.author = author;
     this.numPages = numPages;
-    this.read = false;
+    this.read = read;
 }
 
-function addBookToLibrary() {
-    let sampleBook = new Book("Sample Book", "Ali O.", 25);
-    myLibrary.push(sampleBook);
+function addBookToLibrary(book) {
+    myLibrary.push(book);
     updateBookListUI();
 }
 
