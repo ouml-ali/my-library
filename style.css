@@ -1,5 +1,9 @@
 :root {
     --max-width : 1200px;
+    --clr-neutral-900: hsl(0, 0%, 0%);
+    --clr-neutral-300: hsl(240, 6%, 90%);
+    --clr-neutral-200: hsl(200, 27%, 98%);
+    --clr-neutral-100: hsl(0, 0%, 100%);
 }
 
 
@@ -87,6 +91,14 @@ header > nav > .nav-items {
     align-items: center;
 }
 
+header > nav > .nav-items > button{
+  height: 50px;
+  width: 50px;
+  border-style: none;
+  border-radius: 100%;
+  background-color: var(--clr-neutral-300);
+}
+
 main {
     display: grid;
     grid-template-columns: clamp(90vw, var(--max-width));
@@ -112,6 +124,17 @@ main > .actions {
     padding: 1rem;
 }
 
+
+main > .actions > #add-book-btn {
+  background-color: var(--clr-neutral-900);
+  color: white;
+  border-style: none;
+  border-radius: 5px;
+  padding-inline: 1.5rem;
+  padding-block: 0.75rem;
+  font-size: 1.2rem;
+}
+
 main > #book-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, clamp(150px, 200px, 300px) );
@@ -135,4 +158,133 @@ main > #book-list .book-image {
 main > #book-list .book-info {
    padding: 1rem;
 
+}
+
+dialog::backdrop{
+  background-color: black;
+  opacity: 0.4;
+}
+
+dialog {
+  align-self: center;
+  justify-self: center;
+  max-width: 350px;
+  min-width: 300px;
+  border-style: none;
+  border-radius: 5px;
+  padding: 2rem;
+  box-shadow: 0 0 6px grey;
+}
+
+dialog .header {
+  padding-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+#book-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+#book-form > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 25px;
+}
+
+#book-form > div > div{
+  display: flex;
+  flex-direction: column;
+}
+
+#book-form > div:nth-last-child(-n+2) {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#book-form div:last-child {
+  justify-content: center;
+  width: 100%;
+  padding-top: 1rem;
+}
+
+dialog button {
+  border-style: none;
+  background: transparent;
+  padding-inline: 2rem;
+  padding-block: 0.5rem;
+  width: 100%;
+}
+
+dialog button#dialogAddBtn {
+  border-style: none;
+  background: var(--clr-neutral-900);
+  color: var(--clr-neutral-100);
+  border-radius: 5px;
+}
+
+dialog button#close-btn {
+  width: fit-content;
+  padding: 0;
+}
+
+#book-form > div > .err-msg {
+  padding: 0px;
+  color: tomato;
+  font-size: small;
+}
+
+input, button {
+  appearance: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+input:not([type=checkbox]) {
+  border: 1px solid var(--clr-neutral-300);
+  border-radius: 5px;
+  padding: 0.5rem;
+  transition: ease-in-out 0.1s;
+}
+
+input:not([type=checkbox]):hover, input:not([type=checkbox]):focus, input:not([type=checkbox]):active {
+  border: 1px solid rgb(230, 230, 230);
+  outline: none;
+  box-shadow: 0px 0px 0px 5px var(--clr-neutral-300) ;
+}
+
+input[type=checkbox] {
+  border: 1px solid rgb(228, 228, 228);
+  padding: 0.6rem;
+  background-color: #fff;
+  margin: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  display: grid;
+  place-content: center;
+
+}
+
+input[type=checkbox]::before {
+  content: '';
+  background-color: var(--clr-neutral-900);
+  width: 0.8rem;
+  height: 0.8rem;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  transform-origin: center;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type=checkbox]:checked::before{
+  transform: scale(1);
+}
+
+input[type="checkbox"]:disabled {
+  color: var(--clr-neutral-300);
+  cursor: not-allowed;
 }

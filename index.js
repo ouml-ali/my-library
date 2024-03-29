@@ -1,4 +1,5 @@
 const myLibrary = [];
+const bookId = 1;
 
 const titleRegx = new RegExp(/^[A-Za-z0-9][A-Za-z0-9\s\-_,\.;:()]*$/);
 const authorRegx = new RegExp(/^[A-Za-z][A-Za-z\s]+$/);
@@ -11,6 +12,8 @@ const addBookButton = document.getElementById('add-book-btn');
 const addBookDialog = document.getElementById('add-book-dialog');
 const dialogAddBtn = document.getElementById('dialogAddBtn');
 const bookForm = document.getElementById('book-form');
+const dialogCloseBtn = document.getElementById('close-btn');
+const errMsgDivs = document.querySelectorAll('.err-msg');
 
 //TODO addEventListner on read checkbox to update the book read property
 //TODO refactor code
@@ -23,6 +26,9 @@ addBookButton.addEventListener('click', () => {
 });
 
 addBookDialog.addEventListener('close', () => {
+    errMsgDivs.forEach((errMsgDiv) => {
+        errMsgDiv.textContent = '';
+    })
     bookForm.reset();
 });
 
@@ -39,16 +45,20 @@ dialogAddBtn.addEventListener('click', (event) => {
         addBookToLibrary(book);
         bookForm.reset();
         addBookDialog.close();
-
     } else if(title === '' && author === '' && numPages === '') {
-        let errMsgDivs = document.querySelectorAll('.err-msg');
+
         errMsgDivs.forEach((errMsgDiv) => {
             errMsgDiv.textContent = 'This field is required';
         })
     }
 });
 
+dialogCloseBtn.addEventListener('click', () => {
+    addBookDialog.close();
+});
+
 function Book(title, author, numPages, read) {
+    this.id = bookId++;
     this.title = title;
     this.author = author;
     this.numPages = numPages;
@@ -89,7 +99,13 @@ function updateBookListUI() {
         checkboxInput.setAttribute('id', 'read-checkbox');
         checkboxInput.setAttribute('name', 'read');
         checkboxInput.checked = book.read;
-
+        checkboxInput.addEventListener('change', () => {
+            myLibrary.forEach((item) => {
+                if(book.id === item.id) {
+                    item.read = !item.read;
+                }
+            });
+        });
         const checkboxLabel = document.createElement('label');
         checkboxLabel.textContent = ' Read';
         checkboxLabel.setAttribute('for', 'read-checkbox');

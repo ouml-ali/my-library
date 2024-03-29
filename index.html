@@ -33,30 +33,49 @@
     </header>
     <main>
         <section class="actions">
-            <button id="add-book-btn">+ Add Book</button>
+            <button id="add-book-btn"> + Add Book</button>
         </section>
         <section id="book-list"></section>
         <dialog id="add-book-dialog">
+            <div class="header">
+                <h2>Add Book</h2>
+                <button id="close-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="15" height="15" viewBox="0 0 256 256" xml:space="preserve">
+                        <defs>
+                        </defs>
+                        <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+                            <path d="M 6 90 c -1.536 0 -3.071 -0.586 -4.243 -1.758 c -2.343 -2.343 -2.343 -6.142 0 -8.484 l 78 -78 c 2.342 -2.343 6.143 -2.343 8.484 0 c 2.344 2.343 2.344 6.142 0 8.485 l -78 78 C 9.071 89.414 7.536 90 6 90 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                            <path d="M 84 90 c -1.535 0 -3.071 -0.586 -4.242 -1.758 l -78 -78 c -2.343 -2.343 -2.343 -6.142 0 -8.485 c 2.343 -2.343 6.143 -2.343 8.485 0 l 78 78 c 2.344 2.343 2.344 6.142 0 8.484 C 87.071 89.414 85.535 90 84 90 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                        </g>
+                    </svg>
+                </button>
+            </div>
             <form id="book-form">
-                <p>
-                    <label for="title">Title</label>
-                    <input type="text" name="title" id="title">
+                <div>
+                    <div>
+                        <label for="title">Title</label>
+                        <input type="text" name="title" id="title"/>
+                    </div>
                     <div class="err-msg" id="title-err-msg"></div>
-                </p>
-                <p>
-                    <label for="author">Author</label>
-                    <input type="text" name="author" id="author">
+                </div>
+                <div>
+                    <div>
+                        <label for="author">Author</label>
+                        <input type="text" name="author" id="author">
+                    </div>
                     <div class="err-msg" id="author-err-msg"></div>
-                </p>
-                <p>
-                    <label for="num-pages">Number of Pages</label>
-                    <input type="number" min='0' name="numPages" id="num-pages">
+                </div>
+                <div>
+                    <div>
+                        <label for="num-pages">Number of Pages</label>
+                        <input type="number" min='0' name="numPages" id="num-pages">
+                    </div>
                     <div class="err-msg" id="pages-err-msg"></div>
-                </p>
-                <p>
+                </div>
+                <div>
                     <input type="checkbox" name="read" id="read-form-check">
                     <label for="read-form-check">Read</label>
-                </p>
+                </div>
                 <div>
                     <button value="cancel" formmethod="dialog">Cancel</button>
                     <button id="dialogAddBtn">Add</button>
