@@ -1,10 +1,10 @@
-const myLibrary = [];
-const bookId = 1;
+let bookId = 1;
+let validForm = false;
 
+const myLibrary = [];
 const titleRegx = new RegExp(/^[A-Za-z0-9][A-Za-z0-9\s\-_,\.;:()]*$/);
 const authorRegx = new RegExp(/^[A-Za-z][A-Za-z\s]+$/);
 const numberRegx = new RegExp(/^[0-9]+$/);
-let validForm = false;
 
 
 const bookListContainer = document.getElementById('book-list');
@@ -15,8 +15,6 @@ const bookForm = document.getElementById('book-form');
 const dialogCloseBtn = document.getElementById('close-btn');
 const errMsgDivs = document.querySelectorAll('.err-msg');
 
-//TODO addEventListner on read checkbox to update the book read property
-//TODO refactor code
 
 bookForm.addEventListener('input', validateInput);
 bookForm.addEventListener('change', validateInput);
@@ -35,11 +33,12 @@ addBookDialog.addEventListener('close', () => {
 
 dialogAddBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    let bookFormData = new FormData(bookForm);
-    let title = bookFormData.get('title');
-    let author = bookFormData.get('author');
-    let numPages = bookFormData.get('numPages');
-    let read = bookFormData.get('read');
+    const bookFormData = new FormData(bookForm);
+    const title = bookFormData.get('title');
+    const author = bookFormData.get('author');
+    const numPages = bookFormData.get('numPages');
+    const read = bookFormData.get('read') === null ? false :
+    bookFormData.get('read') === 'on' ? true : false;
     if(validForm) {
         let book = new Book(title, author, numPages, read);
         addBookToLibrary(book);
@@ -130,7 +129,7 @@ function validateInput(event) {
     let errMsgElement;
     switch(inputId) {
         case 'title':
-            let title = event.target.value;
+            const title = event.target.value;
             errMsgElement = document.getElementById('title-err-msg');
             if(!title.match(titleRegx)) {
                 if(title.replace(/[\s]+/, '') !== '') {
@@ -145,7 +144,7 @@ function validateInput(event) {
             }
             break;
         case 'author':
-            let author = event.target.value;
+            const author = event.target.value;
             errMsgElement = document.getElementById('author-err-msg');
             if(!author.match(authorRegx)) {
                 if(author.replace(/[\s]+/, '') !== '') {
@@ -160,7 +159,7 @@ function validateInput(event) {
             }
             break;
         case 'num-pages':
-            let numPages = event.target.value;
+            const numPages = event.target.value;
             errMsgElement = document.getElementById('pages-err-msg');
             if(!numPages.match(numberRegx)) {
                 if(numPages.replace(/[\s]+/, '') !== '') {
