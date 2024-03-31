@@ -178,11 +178,22 @@ main > #book-list .book-info {
    padding: 1rem;
 }
 
-main > #book-list .book-info > .read-check {
+main > #book-list .book-info > .card-footer {
   display: flex;
-  justify-content: end;
-  gap: 8px;
+  justify-content: space-between;
   padding-top: 1rem;
+}
+
+main > #book-list .book-info > .card-footer > #delete-btn {
+ border-style: none;
+ background-color: transparent;
+ color: tomato;
+}
+
+main > #book-list .book-info > .card-footer > .read-check {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 

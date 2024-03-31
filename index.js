@@ -69,6 +69,23 @@ function addBookToLibrary(book) {
     updateBookListUI();
 }
 
+function deleteBookById(bookId) {
+    myLibrary.forEach((item, index) => {
+        if(bookId === item.id) {
+            myLibrary.splice(index, 1);
+        }
+    });
+    updateBookListUI();
+}
+
+function updateBookReadStatus(bookId) {
+    myLibrary.forEach((item) => {
+        if(bookId === item.id) {
+            item.read = !item.read;
+        }
+    });
+}
+
 function updateBookListUI() {
     bookListContainer.textContent = '';
     for(let book of myLibrary) {
@@ -90,6 +107,16 @@ function updateBookListUI() {
         const numPagesElement = document.createElement('p');
         numPagesElement.textContent = book.numPages + ' pages';
 
+        const bookCardFooter = document.createElement('div');
+        bookCardFooter.classList.add('card-footer');
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.setAttribute('id','delete-btn');
+        deleteBtn.textContent = "Delete";
+        deleteBtn.addEventListener('click', () => {
+            deleteBookById(book.id);
+        });
+
         const readCheckBoxContainer = document.createElement('div');
         readCheckBoxContainer.classList.add('read-check');
 
@@ -99,11 +126,7 @@ function updateBookListUI() {
         checkboxInput.setAttribute('name', 'read');
         checkboxInput.checked = book.read;
         checkboxInput.addEventListener('change', () => {
-            myLibrary.forEach((item) => {
-                if(book.id === item.id) {
-                    item.read = !item.read;
-                }
-            });
+            updateBookReadStatus(book.id);
         });
         const checkboxLabel = document.createElement('label');
         checkboxLabel.textContent = ' Read';
@@ -112,10 +135,13 @@ function updateBookListUI() {
         readCheckBoxContainer.appendChild(checkboxInput);
         readCheckBoxContainer.appendChild(checkboxLabel);
 
+        bookCardFooter.appendChild(deleteBtn);
+        bookCardFooter.appendChild(readCheckBoxContainer);
+
         bookInfo.appendChild(titleElement);
         bookInfo.appendChild(authorElement);
         bookInfo.appendChild(numPagesElement);
-        bookInfo.appendChild(readCheckBoxContainer);
+        bookInfo.appendChild(bookCardFooter);
 
         bookItem.appendChild(bookImage);
         bookItem.appendChild(bookInfo);
