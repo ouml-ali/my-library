@@ -1,4 +1,3 @@
-let bookId = 1;
 let validForm = false;
 
 const myLibrary = [];
@@ -56,12 +55,42 @@ dialogCloseBtn.addEventListener('click', () => {
     addBookDialog.close();
 });
 
-function Book(title, author, numPages, read) {
-    this.id = bookId++;
-    this.title = title;
-    this.author = author;
-    this.numPages = numPages;
-    this.read = read;
+class Book {
+    static idInc = 0;
+
+    constructor(title, author, numPages, read) {
+        this._id = ++Book.idInc;
+        this._title = title;
+        this._author = author;
+        this._numPages = numPages;
+        this._read = read;
+    }
+
+    get id() {
+        return this._id;
+    }
+
+    get title() {
+        return this._title;
+    }
+
+    get author() {
+        return this._author;
+    }
+
+    get numPages() {
+        return this._numPages;
+    }
+
+    get read() {
+        return this._read;
+    }
+
+    set read(read) {
+        this._read = read;
+    }
+
+
 }
 
 function addBookToLibrary(book) {
